@@ -35,3 +35,8 @@ public class OrderApp
 
     }
 }
+
+//ApplicationContext를 스프링 컨테이너라고 한다.
+//ApplicationContext는 인터페이스다.
+//스프링 컨테이너는 xml기반, 어노테이션 기반의 자바로 만들 수 있다.
+//new AnnotationConfigApplicationContext(AppConfig.class);
