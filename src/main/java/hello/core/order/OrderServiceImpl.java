@@ -4,7 +4,10 @@ import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService{
     //private final MemberRepository memberRepository=new MemoryMemberRepository();
     private final MemberRepository memberRepository;
@@ -15,6 +18,7 @@ public class OrderServiceImpl implements OrderService{
     //추상화 인터페이스에만 의존
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         //생성자를 통해 객체가 할당되듯~
         // 구체적인 클래스를 모르고
@@ -33,5 +37,11 @@ public class OrderServiceImpl implements OrderService{
         return new Order(memberId,itemName,itemPrice,discountPrice);
     }
 
+    public DiscountPolicy getDiscountPolicy() {
+        return discountPolicy;
+    }
 
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }

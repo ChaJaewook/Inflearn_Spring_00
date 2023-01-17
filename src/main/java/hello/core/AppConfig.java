@@ -18,25 +18,36 @@ import org.springframework.context.annotation.Configuration;
 
 //어플리케이션의 구성(설정) 정보
 // 설정정보에는 @Cofiguration을 적어준다.
+
+//@Bean memberService -> new MemoryMemberRepository()
+//@Bean orderService -> new MemoryMemberRepository()
+//ㄴ> 얘네들은 싱글톤을 만족시키는 걸까?
+
+
 @Configuration
+//@Configuration이 바이트코드를 조작하는 CGLIB 기술을 사용해 싱글톤을 보장
 public class AppConfig {
 
     //역할들이 잘 들어나게 리팩토링이 필요
     @Bean
     public MemberService memberService()
     {
+        System.out.println("call AppConfig.memberService");
         //생성자 주입
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
-    public static MemoryMemberRepository memberRepository() {
+    public MemoryMemberRepository memberRepository() {
+
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService()
     {
+        System.out.println("call AppConfig.orderService");
         //return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
